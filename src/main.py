@@ -12,3 +12,7 @@ def _carregar_tarefas(caminho: str = TASKS_FILE) -> list:
         if not conteudo:
             return []
         return json.loads(conteudo)
+    
+def _salvar_tarefas(tarefas: list, caminho: str = TASKS_FILE) -> None:
+    with open(caminho, "w", encoding="utf-8") as f:
+        json.dump(tarefas, f, ensure_ascii=False, indent=2)
