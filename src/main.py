@@ -20,3 +20,21 @@ def _salvar_tarefas(tarefas: list, caminho: str = TASKS_FILE) -> None:
 def criar_tarefa(titulo: str, descricao: str = "", caminho: str = TASKS_FILE) -> dict:
     if not titulo or not titulo.strip():
         raise ValueError("Por favor, coloque um nome na tarefa!")
+    
+    tarefas = _carregar_tarefas(caminho)
+
+    novo_id = max((t["id"] for t in tarefas), default=0) + 1
+
+    tarefa = {
+        "id": novo_id,
+        "titulo": titulo.strip(),
+        "descricao": descricao.strip(),
+        "status": "a_fazer",
+        "criado_em": datetime.now().isoformat(),
+        "atualizado_em": datetime.now().isoformat(),
+    }
+
+    tarefas.append(tarefa)
+    _salvar_tarefas(tarefas, caminho)
+    
+    return tarefa
