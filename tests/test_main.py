@@ -19,3 +19,8 @@ def test_criar_tarefa_basica(arquivo_temp):
     assert tarefa["id"] == 1
     assert tarefa["titulo"] == "Implementar login"
     assert tarefa["status"] == "a_fazer"
+
+def test_criar_tarefa_com_descricao(arquivo_temp):
+    """Deve salvar a descrição corretamente."""
+    tarefa = criar_tarefa("Tarefa com descricao", descricao="Detalhes aqui", caminho=arquivo_temp)
+    assert tarefa["descricao"] == "Detalhes aqui"
