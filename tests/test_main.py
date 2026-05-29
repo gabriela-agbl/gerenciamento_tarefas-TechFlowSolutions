@@ -38,3 +38,9 @@ def test_ids_incrementais(arquivo_temp):
 
 def test_listar_tarefas_vazio(arquivo_temp):
     assert listar_tarefas(caminho=arquivo_temp) == []
+
+def test_listar_tarefas_retorna_todas(arquivo_temp):
+    criar_tarefa("T1", caminho=arquivo_temp)
+    criar_tarefa("T2", caminho=arquivo_temp)
+    tarefas = listar_tarefas(caminho=arquivo_temp)
+    assert len(tarefas) == 2
