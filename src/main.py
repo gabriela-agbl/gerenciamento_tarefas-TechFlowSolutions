@@ -51,3 +51,27 @@ def buscar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE) -> dict:
         if tarefa["id"] == tarefa_id:
             return tarefa
     raise ValueError(f"Tarefa de id:{tarefa_id} não encontrada.")
+
+def atualizar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE, **campos) -> dict:
+    campos_validos = {"titulo", "descricao", "status"}
+    status_validos = {"a_fazer", "em_progresso", "concluido"}
+
+    for campo in campos:
+        if campo not in campos_validos:
+            raise ValueError(f"Campo inválido: '{campo}'. Permitidos: {campos_validos}")
+
+    if "status" in campos and campos["status"] not in status_validos:
+        raise ValueError(f"Status inválido. Use: {status_validos}")
+
+    if "titulo" in campos and not campos["titulo"].strip():
+        raise ValueError("O título não pode ser vazio.")
+
+    tarefas = _carregar_tarefas(caminho)
+    for tarefa in tarefas:
+        if tarefa["id"] == tarefa_id:
+            tarefa.update(campos)
+            tarefa["atualizado_em"] = datetime.now().isoformat()
+            _salvar_tarefas(tarefas, caminho)
+            return tarefa
+
+    raise ValueError(f"Tarefa com ID {tarefa_id} não encontrada.")
