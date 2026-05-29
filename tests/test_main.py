@@ -81,3 +81,9 @@ def test_atualizar_status_invalido_levanta_erro(arquivo_temp):
 def test_atualizar_tarefa_inexistente_levanta_erro(arquivo_temp):
     with pytest.raises(ValueError, match="não encontrada"):
         atualizar_tarefa(999, status="concluido", caminho=arquivo_temp)
+
+def test_deletar_tarefa(arquivo_temp):
+    tarefa = criar_tarefa("Remover isso", caminho=arquivo_temp)
+    resultado = deletar_tarefa(tarefa["id"], caminho=arquivo_temp)
+    assert resultado is True
+    assert listar_tarefas(caminho=arquivo_temp) == []
