@@ -44,3 +44,10 @@ def listar_tarefas(status: str = None, caminho: str = TASKS_FILE) -> list:
     if status:
         tarefas = [t for t in tarefas if t["status"] == status]
     return tarefas
+
+def buscar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE) -> dict:
+    tarefas = _carregar_tarefas(caminho)
+    for tarefa in tarefas:
+        if tarefa["id"] == tarefa_id:
+            return tarefa
+    raise ValueError(f"Tarefa de id:{tarefa_id} não encontrada.")
