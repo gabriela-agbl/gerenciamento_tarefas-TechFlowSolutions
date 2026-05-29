@@ -53,3 +53,8 @@ def test_listar_tarefas_com_filtro_status(arquivo_temp):
     em_progresso = listar_tarefas(status="em_progresso", caminho=arquivo_temp)
     assert len(em_progresso) == 1
     assert em_progresso[0]["titulo"] == "T2"
+
+def test_buscar_tarefa_existente(arquivo_temp):
+    criada = criar_tarefa("Buscar isso", caminho=arquivo_temp)
+    encontrada = buscar_tarefa(criada["id"], caminho=arquivo_temp)
+    assert encontrada["titulo"] == "Buscar isso"
