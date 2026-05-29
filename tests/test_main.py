@@ -62,3 +62,8 @@ def test_buscar_tarefa_existente(arquivo_temp):
 def test_buscar_tarefa_inexistente_levanta_erro(arquivo_temp):
     with pytest.raises(ValueError, match="não encontrada"):
         buscar_tarefa(999, caminho=arquivo_temp)
+
+def test_atualizar_status(arquivo_temp):
+    tarefa = criar_tarefa("Mover para progresso", caminho=arquivo_temp)
+    atualizada = atualizar_tarefa(tarefa["id"], status="em_progresso", caminho=arquivo_temp)
+    assert atualizada["status"] == "em_progresso"
