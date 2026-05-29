@@ -58,3 +58,7 @@ def test_buscar_tarefa_existente(arquivo_temp):
     criada = criar_tarefa("Buscar isso", caminho=arquivo_temp)
     encontrada = buscar_tarefa(criada["id"], caminho=arquivo_temp)
     assert encontrada["titulo"] == "Buscar isso"
+
+def test_buscar_tarefa_inexistente_levanta_erro(arquivo_temp):
+    with pytest.raises(ValueError, match="não encontrada"):
+        buscar_tarefa(999, caminho=arquivo_temp)
