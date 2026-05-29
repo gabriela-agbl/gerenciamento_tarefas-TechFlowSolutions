@@ -75,3 +75,13 @@ def atualizar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE, **campos) -> dic
             return tarefa
 
     raise ValueError(f"Tarefa com ID {tarefa_id} não encontrada.")
+
+def deletar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE) -> bool:
+    tarefas = _carregar_tarefas(caminho)
+    tarefas_filtradas = [t for t in tarefas if t["id"] != tarefa_id]
+
+    if len(tarefas_filtradas) == len(tarefas):
+        raise ValueError(f"Tarefa com ID {tarefa_id} não encontrada.")
+
+    _salvar_tarefas(tarefas_filtradas, caminho)
+    return True
