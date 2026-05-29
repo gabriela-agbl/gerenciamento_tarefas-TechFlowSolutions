@@ -72,3 +72,8 @@ def test_atualizar_titulo(arquivo_temp):
     tarefa = criar_tarefa("Título antigo", caminho=arquivo_temp)
     atualizada = atualizar_tarefa(tarefa["id"], titulo="Título novo", caminho=arquivo_temp)
     assert atualizada["titulo"] == "Título novo"
+
+def test_atualizar_status_invalido_levanta_erro(arquivo_temp):
+    tarefa = criar_tarefa("T", caminho=arquivo_temp)
+    with pytest.raises(ValueError, match="Status inválido"):
+        atualizar_tarefa(tarefa["id"], status="pausado", caminho=arquivo_temp)
