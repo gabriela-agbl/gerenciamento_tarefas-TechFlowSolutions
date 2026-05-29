@@ -19,7 +19,7 @@ def _salvar_tarefas(tarefas: list, caminho: str = TASKS_FILE) -> None:
 
 def criar_tarefa(titulo: str, descricao: str = "", caminho: str = TASKS_FILE) -> dict:
     if not titulo or not titulo.strip():
-        raise ValueError("Por favor, coloque um nome na tarefa!")
+        raise ValueError("Por favor, coloque um título na tarefa!")
     
     tarefas = _carregar_tarefas(caminho)
 
