@@ -35,3 +35,6 @@ def test_ids_incrementais(arquivo_temp):
     assert t1["id"] == 1
     assert t2["id"] == 2
     assert t3["id"] == 3
+
+def test_listar_tarefas_vazio(arquivo_temp):
+    assert listar_tarefas(caminho=arquivo_temp) == []
