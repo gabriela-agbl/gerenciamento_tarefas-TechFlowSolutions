@@ -67,3 +67,8 @@ def test_atualizar_status(arquivo_temp):
     tarefa = criar_tarefa("Mover para progresso", caminho=arquivo_temp)
     atualizada = atualizar_tarefa(tarefa["id"], status="em_progresso", caminho=arquivo_temp)
     assert atualizada["status"] == "em_progresso"
+
+def test_atualizar_titulo(arquivo_temp):
+    tarefa = criar_tarefa("Título antigo", caminho=arquivo_temp)
+    atualizada = atualizar_tarefa(tarefa["id"], titulo="Título novo", caminho=arquivo_temp)
+    assert atualizada["titulo"] == "Título novo"
