@@ -27,3 +27,11 @@ def test_criar_tarefa_com_descricao(arquivo_temp):
 def test_criar_tarefa_titulo_vazio_levanta_erro(arquivo_temp):
     with pytest.raises(ValueError, match="título"):
         criar_tarefa("", caminho=arquivo_temp)
+
+def test_ids_incrementais(arquivo_temp):
+    t1 = criar_tarefa("Tarefa 1", caminho=arquivo_temp)
+    t2 = criar_tarefa("Tarefa 2", caminho=arquivo_temp)
+    t3 = criar_tarefa("Tarefa 3", caminho=arquivo_temp)
+    assert t1["id"] == 1
+    assert t2["id"] == 2
+    assert t3["id"] == 3
