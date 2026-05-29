@@ -87,3 +87,7 @@ def test_deletar_tarefa(arquivo_temp):
     resultado = deletar_tarefa(tarefa["id"], caminho=arquivo_temp)
     assert resultado is True
     assert listar_tarefas(caminho=arquivo_temp) == []
+
+def test_deletar_tarefa_inexistente_levanta_erro(arquivo_temp):
+    with pytest.raises(ValueError, match="não encontrada"):
+        deletar_tarefa(999, caminho=arquivo_temp)
