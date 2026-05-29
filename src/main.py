@@ -38,3 +38,9 @@ def criar_tarefa(titulo: str, descricao: str = "", caminho: str = TASKS_FILE) ->
     _salvar_tarefas(tarefas, caminho)
     
     return tarefa
+
+def listar_tarefas(status: str = None, caminho: str = TASKS_FILE) -> list:
+    tarefas = _carregar_tarefas(caminho)
+    if status:
+        tarefas = [t for t in tarefas if t["status"] == status]
+    return tarefas
