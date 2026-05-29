@@ -13,3 +13,9 @@ def arquivo_temp():
         caminho = f.name
     yield caminho
     os.unlink(caminho)
+
+def test_criar_tarefa_basica(arquivo_temp):
+    tarefa = criar_tarefa("Implementar login", caminho=arquivo_temp)
+    assert tarefa["id"] == 1
+    assert tarefa["titulo"] == "Implementar login"
+    assert tarefa["status"] == "a_fazer"
