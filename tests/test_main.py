@@ -21,6 +21,9 @@ def test_criar_tarefa_basica(arquivo_temp):
     assert tarefa["status"] == "a_fazer"
 
 def test_criar_tarefa_com_descricao(arquivo_temp):
-    """Deve salvar a descrição corretamente."""
     tarefa = criar_tarefa("Tarefa com descricao", descricao="Detalhes aqui", caminho=arquivo_temp)
     assert tarefa["descricao"] == "Detalhes aqui"
+
+def test_criar_tarefa_titulo_vazio_levanta_erro(arquivo_temp):
+    with pytest.raises(ValueError, match="título"):
+        criar_tarefa("", caminho=arquivo_temp)
