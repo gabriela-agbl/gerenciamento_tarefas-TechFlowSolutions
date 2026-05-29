@@ -44,3 +44,12 @@ def test_listar_tarefas_retorna_todas(arquivo_temp):
     criar_tarefa("T2", caminho=arquivo_temp)
     tarefas = listar_tarefas(caminho=arquivo_temp)
     assert len(tarefas) == 2
+
+def test_listar_tarefas_com_filtro_status(arquivo_temp):
+    criar_tarefa("T1", caminho=arquivo_temp)
+    t2 = criar_tarefa("T2", caminho=arquivo_temp)
+    atualizar_tarefa(t2["id"], status="em_progresso", caminho=arquivo_temp)
+
+    em_progresso = listar_tarefas(status="em_progresso", caminho=arquivo_temp)
+    assert len(em_progresso) == 1
+    assert em_progresso[0]["titulo"] == "T2"
