@@ -19,10 +19,19 @@ def test_criar_tarefa_basica(arquivo_temp):
     assert tarefa["id"] == 1
     assert tarefa["titulo"] == "Implementar login"
     assert tarefa["status"] == "a_fazer"
+    assert tarefa["prioridade"] == "media"
 
 def test_criar_tarefa_com_descricao(arquivo_temp):
     tarefa = criar_tarefa("Tarefa", descricao="Detalhes aqui", caminho=arquivo_temp)
     assert tarefa["descricao"] == "Detalhes aqui"
+
+def test_criar_tarefa_prioridade_alta(arquivo_temp):
+    tarefa = criar_tarefa("Urgente", prioridade="alta", caminho=arquivo_temp)
+    assert tarefa["prioridade"] == "alta"
+
+def test_criar_tarefa_prioridade_invalida(arquivo_temp):
+    with pytest.raises(ValueError, match="Prioridade"):
+        criar_tarefa("T", prioridade="urgente", caminho=arquivo_temp)
 
 def test_criar_tarefa_titulo_vazio_levanta_erro(arquivo_temp):
     with pytest.raises(ValueError, match="não pode ser vazio"):
@@ -70,6 +79,16 @@ def test_atualizar_titulo(arquivo_temp):
     tarefa = criar_tarefa("Título antigo", caminho=arquivo_temp)
     atualizada = atualizar_tarefa(tarefa["id"], titulo="Título novo", caminho=arquivo_temp)
     assert atualizada["titulo"] == "Título novo"
+
+def test_atualizar_prioridade(arquivo_temp):
+    tarefa = criar_tarefa("T", prioridade="baixa", caminho=arquivo_temp)
+    atualizada = atualizar_tarefa(tarefa["id"], prioridade="alta", caminho=arquivo_temp)
+    assert atualizada["prioridade"] == "alta"
+
+def test_atualizar_prioridade_invalida(arquivo_temp):
+    tarefa = criar_tarefa("T", caminho=arquivo_temp)
+    with pytest.raises(ValueError, match="Prioridade"):
+        atualizar_tarefa(tarefa["id"], prioridade="critica", caminho=arquivo_temp)
 
 def test_atualizar_status_invalido_levanta_erro(arquivo_temp):
     tarefa = criar_tarefa("T", caminho=arquivo_temp)

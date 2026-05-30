@@ -7,37 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0f0f13;
-      --surface: #18181f;
-      --surface2: #222230;
-      --border: #2e2e40;
-      --accent: #7c6dfa;
-      --accent2: #fa6d9a;
-      --accent3: #6dfabc;
-      --text: #f0f0f8;
-      --text2: #9090b0;
-      --radius: 12px;
+      --bg: #0f0f13; --surface: #18181f; --surface2: #222230; --border: #2e2e40;
+      --accent: #7c6dfa; --accent2: #fa6d9a; --accent3: #6dfabc;
+      --text: #f0f0f8; --text2: #9090b0; --radius: 12px;
     }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      min-height: 100vh;
-    }
-
-    header {
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--surface);
-    }
-
-    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+    header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; }
     .logo span { color: var(--accent); }
     .badge { font-size: 0.7rem; background: var(--accent); color: white; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 
@@ -47,181 +25,73 @@
 
     main { padding: 2rem; }
 
-    .create-form {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+    .search-bar { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .search-bar input { flex: 1; max-width: 420px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0.6rem 1rem; outline: none; transition: border-color 0.2s; }
+    .search-bar input:focus { border-color: var(--accent); }
+    #busca-resultado { font-size: 0.8rem; color: var(--text2); }
+
+    .create-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem; }
+    .create-form h2 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; }
+    .form-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+
+    input[type="text"], select {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      padding: 0.6rem 1rem; outline: none; transition: border-color 0.2s;
     }
-
-    .create-form h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--text2);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .form-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
-    input[type="text"] {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      padding: 0.6rem 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="text"]:focus { border-color: var(--accent); }
+    input[type="text"]:focus, select:focus { border-color: var(--accent); }
     input[name="titulo"] { flex: 1; min-width: 200px; }
-    input[name="descricao"] { flex: 2; min-width: 250px; }
+    input[name="descricao"] { flex: 2; min-width: 200px; }
+    select[name="prioridade"] { min-width: 120px; cursor: pointer; }
 
-    .btn-criar {
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1.5rem;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.875rem;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
-      white-space: nowrap;
-    }
+    .btn-criar { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.875rem; cursor: pointer; transition: opacity 0.2s, transform 0.1s; white-space: nowrap; }
     .btn-criar:hover { opacity: 0.85; transform: translateY(-1px); }
 
     .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     @media (max-width: 900px) { .kanban { grid-template-columns: 1fr; } }
 
-    .column {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-      min-height: 400px;
-    }
-
-    .column-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .column { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; min-height: 400px; }
+    .column-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
     .column-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
     .col-a-fazer   .column-title { color: var(--text2); }
     .col-progresso .column-title { color: var(--accent); }
     .col-concluido .column-title { color: var(--accent3); }
-
     .count { font-size: 0.75rem; background: var(--surface2); color: var(--text2); padding: 2px 8px; border-radius: 10px; font-weight: 600; }
 
-    .card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 0.75rem;
-      transition: transform 0.15s, border-color 0.15s;
-    }
+    .card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; margin-bottom: 0.75rem; transition: transform 0.15s, border-color 0.15s; }
     .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .card.oculto { display: none; }
 
-    .card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.35rem; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.35rem; gap: 0.5rem; }
+    .card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; }
     .card-desc  { font-size: 0.8rem; color: var(--text2); margin-bottom: 0.75rem; line-height: 1.4; }
     .card-meta  { font-size: 0.7rem; color: var(--text2); margin-bottom: 0.75rem; }
-
     .card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
-    .btn {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text2);
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-      transition: all 0.15s;
-    }
+    .badge-prioridade { font-size: 0.65rem; padding: 2px 8px; border-radius: 10px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0; }
+    .badge-alta  { background: #3a1a2a; color: #fa6d9a; border: 1px solid #5a2a3a; }
+    .badge-media { background: #2a2a1a; color: #fadd6d; border: 1px solid #4a4a2a; }
+    .badge-baixa { background: #1a2a3a; color: #6dbaff; border: 1px solid #2a4a5a; }
+
+    .btn { font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text2); cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; }
     .btn:hover         { background: var(--surface); color: var(--text); }
     .btn-progresso:hover { border-color: var(--accent);  color: var(--accent); }
     .btn-concluir:hover  { border-color: var(--accent3); color: var(--accent3); }
-    .btn-editar:hover    { border-color: #fadd6d;        color: #fadd6d; }
+    .btn-editar:hover    { border-color: #fadd6d; color: #fadd6d; }
     .btn-del:hover       { border-color: var(--accent2); color: var(--accent2); }
 
-    .empty { text-align: center; color: var(--text2); font-size: 0.8rem; padding: 2rem 0; opacity: 0.5; }
-
-    .edit-form {
-      display: none;
-      margin-top: 0.75rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border);
-      flex-direction: column;
-      gap: 0.5rem;
-    }
+    .edit-form { display: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); flex-direction: column; gap: 0.5rem; }
     .edit-form.aberto { display: flex; }
     .edit-form input[type="text"] { width: 100%; font-size: 0.8rem; padding: 0.45rem 0.75rem; }
+    .edit-form select { width: 100%; font-size: 0.8rem; padding: 0.45rem 0.75rem; }
     .edit-form-actions { display: flex; gap: 0.5rem; }
 
-    .btn-salvar {
-      font-size: 0.75rem;
-      padding: 4px 12px;
-      border-radius: 6px;
-      border: none;
-      background: var(--accent);
-      color: white;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      transition: opacity 0.15s;
-    }
+    .btn-salvar { font-size: 0.75rem; padding: 4px 12px; border-radius: 6px; border: none; background: var(--accent); color: white; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; transition: opacity 0.15s; }
     .btn-salvar:hover { opacity: 0.8; }
-
-    .btn-cancelar {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text2);
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: all 0.15s;
-    }
+    .btn-cancelar { font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text2); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
     .btn-cancelar:hover { color: var(--text); background: var(--surface); }
 
-    .search-bar {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .search-bar input {
-      flex: 1;
-      max-width: 420px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      padding: 0.6rem 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .search-bar input:focus { border-color: var(--accent); }
-    #busca-resultado { font-size: 0.8rem; color: var(--text2); }
-    .card.oculto { display: none; }
+    .empty { text-align: center; color: var(--text2); font-size: 0.8rem; padding: 2rem 0; opacity: 0.5; }
   </style>
 </head>
 <body>
@@ -250,6 +120,11 @@
       <div class="form-row">
         <input type="text" name="titulo" placeholder="Título da tarefa *" required>
         <input type="text" name="descricao" placeholder="Descrição (opcional)">
+        <select name="prioridade">
+          <option value="baixa">🔵 Baixa</option>
+          <option value="media" selected>🟡 Média</option>
+          <option value="alta">🔴 Alta</option>
+        </select>
         <button class="btn-criar" type="submit">+ Criar</button>
       </div>
     </form>
@@ -264,9 +139,12 @@
       </div>
       {% for t in a_fazer %}
       <div class="card">
-        <div class="card-title">{{ t.titulo }}</div>
+        <div class="card-header">
+          <div class="card-title">{{ t.titulo }}</div>
+          <span class="badge-prioridade badge-{{ t.prioridade }}">{{ t.prioridade.upper() }}</span>
+        </div>
         {% if t.descricao %}<div class="card-desc">{{ t.descricao }}</div>{% endif %}
-        <div class="card-meta">Criado em {{ t.criado_em }}</div>
+        <div class="card-meta">Criado em {{ t.criado_em }} · Atualizado em {{ t.atualizado_em }}</div>
         <div class="card-actions">
           <form method="POST" action="/atualizar/{{ t.id }}">
             <input type="hidden" name="status" value="em_progresso">
@@ -281,6 +159,11 @@
           <form method="POST" action="/editar/{{ t.id }}">
             <input type="text" name="titulo" value="{{ t.titulo }}" placeholder="Título" required>
             <input type="text" name="descricao" value="{{ t.descricao }}" placeholder="Descrição">
+            <select name="prioridade">
+              <option value="baixa" {% if t.prioridade == 'baixa' %}selected{% endif %}>🔵 Baixa</option>
+              <option value="media" {% if t.prioridade == 'media' %}selected{% endif %}>🟡 Média</option>
+              <option value="alta"  {% if t.prioridade == 'alta'  %}selected{% endif %}>🔴 Alta</option>
+            </select>
             <div class="edit-form-actions">
               <button class="btn-salvar" type="submit">Salvar</button>
               <button class="btn-cancelar" type="button" onclick="toggleEdit({{ t.id }})">Cancelar</button>
@@ -288,9 +171,7 @@
           </form>
         </div>
       </div>
-      {% else %}
-      <div class="empty">Nenhuma tarefa</div>
-      {% endfor %}
+      {% else %}<div class="empty">Nenhuma tarefa</div>{% endfor %}
     </div>
 
     <div class="column col-progresso">
@@ -300,9 +181,12 @@
       </div>
       {% for t in em_progresso %}
       <div class="card">
-        <div class="card-title">{{ t.titulo }}</div>
+        <div class="card-header">
+          <div class="card-title">{{ t.titulo }}</div>
+          <span class="badge-prioridade badge-{{ t.prioridade }}">{{ t.prioridade.upper() }}</span>
+        </div>
         {% if t.descricao %}<div class="card-desc">{{ t.descricao }}</div>{% endif %}
-        <div class="card-meta">Atualizado em {{ t.atualizado_em }}</div>
+        <div class="card-meta">Criado em {{ t.criado_em }} · Atualizado em {{ t.atualizado_em }}</div>
         <div class="card-actions">
           <form method="POST" action="/atualizar/{{ t.id }}">
             <input type="hidden" name="status" value="a_fazer">
@@ -321,6 +205,11 @@
           <form method="POST" action="/editar/{{ t.id }}">
             <input type="text" name="titulo" value="{{ t.titulo }}" placeholder="Título" required>
             <input type="text" name="descricao" value="{{ t.descricao }}" placeholder="Descrição">
+            <select name="prioridade">
+              <option value="baixa" {% if t.prioridade == 'baixa' %}selected{% endif %}>🔵 Baixa</option>
+              <option value="media" {% if t.prioridade == 'media' %}selected{% endif %}>🟡 Média</option>
+              <option value="alta"  {% if t.prioridade == 'alta'  %}selected{% endif %}>🔴 Alta</option>
+            </select>
             <div class="edit-form-actions">
               <button class="btn-salvar" type="submit">Salvar</button>
               <button class="btn-cancelar" type="button" onclick="toggleEdit({{ t.id }})">Cancelar</button>
@@ -328,9 +217,7 @@
           </form>
         </div>
       </div>
-      {% else %}
-      <div class="empty">Nenhuma tarefa</div>
-      {% endfor %}
+      {% else %}<div class="empty">Nenhuma tarefa</div>{% endfor %}
     </div>
 
     <div class="column col-concluido">
@@ -340,9 +227,12 @@
       </div>
       {% for t in concluido %}
       <div class="card">
-        <div class="card-title">{{ t.titulo }}</div>
+        <div class="card-header">
+          <div class="card-title">{{ t.titulo }}</div>
+          <span class="badge-prioridade badge-{{ t.prioridade }}">{{ t.prioridade.upper() }}</span>
+        </div>
         {% if t.descricao %}<div class="card-desc">{{ t.descricao }}</div>{% endif %}
-        <div class="card-meta">Concluído em {{ t.atualizado_em }}</div>
+        <div class="card-meta">Criado em {{ t.criado_em }} · Atualizado em {{ t.atualizado_em }}</div>
         <div class="card-actions">
           <form method="POST" action="/atualizar/{{ t.id }}">
             <input type="hidden" name="status" value="em_progresso">
@@ -357,6 +247,11 @@
           <form method="POST" action="/editar/{{ t.id }}">
             <input type="text" name="titulo" value="{{ t.titulo }}" placeholder="Título" required>
             <input type="text" name="descricao" value="{{ t.descricao }}" placeholder="Descrição">
+            <select name="prioridade">
+              <option value="baixa" {% if t.prioridade == 'baixa' %}selected{% endif %}>🔵 Baixa</option>
+              <option value="media" {% if t.prioridade == 'media' %}selected{% endif %}>🟡 Média</option>
+              <option value="alta"  {% if t.prioridade == 'alta'  %}selected{% endif %}>🔴 Alta</option>
+            </select>
             <div class="edit-form-actions">
               <button class="btn-salvar" type="submit">Salvar</button>
               <button class="btn-cancelar" type="button" onclick="toggleEdit({{ t.id }})">Cancelar</button>
@@ -364,9 +259,7 @@
           </form>
         </div>
       </div>
-      {% else %}
-      <div class="empty">Nenhuma tarefa</div>
-      {% endfor %}
+      {% else %}<div class="empty">Nenhuma tarefa</div>{% endfor %}
     </div>
 
   </div>
@@ -377,29 +270,21 @@
     const termo = document.getElementById('busca').value.toLowerCase().trim();
     const cards = document.querySelectorAll('.card');
     let encontrados = 0;
-
     cards.forEach(card => {
       const titulo = card.querySelector('.card-title').textContent.toLowerCase();
       const desc = card.querySelector('.card-desc') ? card.querySelector('.card-desc').textContent.toLowerCase() : '';
       if (!termo || titulo.includes(termo) || desc.includes(termo)) {
-        card.classList.remove('oculto');
-        encontrados++;
+        card.classList.remove('oculto'); encontrados++;
       } else {
         card.classList.add('oculto');
       }
     });
-
     const resultado = document.getElementById('busca-resultado');
-    if (termo) {
-      resultado.textContent = encontrados === 0 ? 'Nenhuma tarefa encontrada.' : `${encontrados} tarefa(s) encontrada(s).`;
-    } else {
-      resultado.textContent = '';
-    }
+    resultado.textContent = termo ? (encontrados === 0 ? 'Nenhuma tarefa encontrada.' : `${encontrados} tarefa(s) encontrada(s).`) : '';
   }
 
   function toggleEdit(id) {
-    const form = document.getElementById('edit-' + id);
-    form.classList.toggle('aberto');
+    document.getElementById('edit-' + id).classList.toggle('aberto');
   }
 </script>
 
