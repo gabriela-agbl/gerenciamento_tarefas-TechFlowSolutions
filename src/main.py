@@ -6,7 +6,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = "techflow_secret_key"
 
-TASKS_FILE = os.path.join(os.path.dirname(__file__), "tasks_data.json")
+TASKS_FILE = os.path.join(os.path.dirname(__file__), "main_data.json")
 
 def _carregar_tarefas(caminho: str = TASKS_FILE) -> list:
     if not os.path.exists(caminho):
