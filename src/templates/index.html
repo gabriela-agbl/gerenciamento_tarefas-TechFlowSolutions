@@ -199,6 +199,29 @@
       transition: all 0.15s;
     }
     .btn-cancelar:hover { color: var(--text); background: var(--surface); }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .search-bar input {
+      flex: 1;
+      max-width: 420px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-bar input:focus { border-color: var(--accent); }
+    #busca-resultado { font-size: 0.8rem; color: var(--text2); }
+    .card.oculto { display: none; }
   </style>
 </head>
 <body>
@@ -215,6 +238,11 @@
 {% endwith %}
 
 <main>
+
+  <div class="search-bar">
+    <input type="text" id="busca" placeholder="🔍  Buscar tarefa pelo título..." oninput="buscarTarefas()">
+    <span id="busca-resultado"></span>
+  </div>
 
   <div class="create-form">
     <h2>Nova Tarefa</h2>
@@ -345,6 +373,30 @@
 </main>
 
 <script>
+  function buscarTarefas() {
+    const termo = document.getElementById('busca').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.card');
+    let encontrados = 0;
+
+    cards.forEach(card => {
+      const titulo = card.querySelector('.card-title').textContent.toLowerCase();
+      const desc = card.querySelector('.card-desc') ? card.querySelector('.card-desc').textContent.toLowerCase() : '';
+      if (!termo || titulo.includes(termo) || desc.includes(termo)) {
+        card.classList.remove('oculto');
+        encontrados++;
+      } else {
+        card.classList.add('oculto');
+      }
+    });
+
+    const resultado = document.getElementById('busca-resultado');
+    if (termo) {
+      resultado.textContent = encontrados === 0 ? 'Nenhuma tarefa encontrada.' : `${encontrados} tarefa(s) encontrada(s).`;
+    } else {
+      resultado.textContent = '';
+    }
+  }
+
   function toggleEdit(id) {
     const form = document.getElementById('edit-' + id);
     form.classList.toggle('aberto');
