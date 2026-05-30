@@ -37,32 +37,11 @@
       background: var(--surface);
     }
 
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.4rem;
-      letter-spacing: -0.5px;
-    }
-
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
     .logo span { color: var(--accent); }
+    .badge { font-size: 0.7rem; background: var(--accent); color: white; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 
-    .badge {
-      font-size: 0.7rem;
-      background: var(--accent);
-      color: white;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .flash {
-      margin: 1rem 2rem 0;
-      padding: 0.75rem 1.25rem;
-      border-radius: var(--radius);
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
+    .flash { margin: 1rem 2rem 0; padding: 0.75rem 1.25rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 500; }
     .flash.sucesso { background: #1a3a2a; color: var(--accent3); border: 1px solid #2a5a3a; }
     .flash.erro    { background: #3a1a2a; color: var(--accent2); border: 1px solid #5a2a3a; }
 
@@ -86,13 +65,9 @@
       letter-spacing: 1px;
     }
 
-    .form-row {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
+    .form-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-    input[type="text"], textarea {
+    input[type="text"] {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -104,14 +79,11 @@
       transition: border-color 0.2s;
     }
 
-    input[type="text"]:focus, textarea:focus {
-      border-color: var(--accent);
-    }
-
+    input[type="text"]:focus { border-color: var(--accent); }
     input[name="titulo"] { flex: 1; min-width: 200px; }
     input[name="descricao"] { flex: 2; min-width: 250px; }
 
-    button[type="submit"] {
+    .btn-criar {
       background: var(--accent);
       color: white;
       border: none;
@@ -124,15 +96,9 @@
       transition: opacity 0.2s, transform 0.1s;
       white-space: nowrap;
     }
+    .btn-criar:hover { opacity: 0.85; transform: translateY(-1px); }
 
-    button[type="submit"]:hover { opacity: 0.85; transform: translateY(-1px); }
-
-    .kanban {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-
+    .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     @media (max-width: 900px) { .kanban { grid-template-columns: 1fr; } }
 
     .column {
@@ -152,26 +118,12 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .column-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
+    .column-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
     .col-a-fazer   .column-title { color: var(--text2); }
     .col-progresso .column-title { color: var(--accent); }
     .col-concluido .column-title { color: var(--accent3); }
 
-    .count {
-      font-size: 0.75rem;
-      background: var(--surface2);
-      color: var(--text2);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
+    .count { font-size: 0.75rem; background: var(--surface2); color: var(--text2); padding: 2px 8px; border-radius: 10px; font-weight: 600; }
 
     .card {
       background: var(--surface2);
@@ -181,34 +133,13 @@
       margin-bottom: 0.75rem;
       transition: transform 0.15s, border-color 0.15s;
     }
-
     .card:hover { transform: translateY(-2px); border-color: var(--accent); }
 
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 0.35rem;
-    }
+    .card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.35rem; }
+    .card-desc  { font-size: 0.8rem; color: var(--text2); margin-bottom: 0.75rem; line-height: 1.4; }
+    .card-meta  { font-size: 0.7rem; color: var(--text2); margin-bottom: 0.75rem; }
 
-    .card-desc {
-      font-size: 0.8rem;
-      color: var(--text2);
-      margin-bottom: 0.75rem;
-      line-height: 1.4;
-    }
-
-    .card-meta {
-      font-size: 0.7rem;
-      color: var(--text2);
-      margin-bottom: 0.75rem;
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
+    .card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
     .btn {
       font-size: 0.75rem;
@@ -222,20 +153,52 @@
       font-weight: 500;
       transition: all 0.15s;
     }
-
-    .btn:hover { background: var(--surface); color: var(--text); }
-    .btn-progresso:hover { border-color: var(--accent); color: var(--accent); }
+    .btn:hover         { background: var(--surface); color: var(--text); }
+    .btn-progresso:hover { border-color: var(--accent);  color: var(--accent); }
     .btn-concluir:hover  { border-color: var(--accent3); color: var(--accent3); }
-    .btn-voltar:hover    { border-color: var(--text2); }
+    .btn-editar:hover    { border-color: #fadd6d;        color: #fadd6d; }
     .btn-del:hover       { border-color: var(--accent2); color: var(--accent2); }
 
-    .empty {
-      text-align: center;
-      color: var(--text2);
-      font-size: 0.8rem;
-      padding: 2rem 0;
-      opacity: 0.5;
+    .empty { text-align: center; color: var(--text2); font-size: 0.8rem; padding: 2rem 0; opacity: 0.5; }
+
+    .edit-form {
+      display: none;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      flex-direction: column;
+      gap: 0.5rem;
     }
+    .edit-form.aberto { display: flex; }
+    .edit-form input[type="text"] { width: 100%; font-size: 0.8rem; padding: 0.45rem 0.75rem; }
+    .edit-form-actions { display: flex; gap: 0.5rem; }
+
+    .btn-salvar {
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+    .btn-salvar:hover { opacity: 0.8; }
+
+    .btn-cancelar {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text2);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+    .btn-cancelar:hover { color: var(--text); background: var(--surface); }
   </style>
 </head>
 <body>
@@ -252,13 +215,14 @@
 {% endwith %}
 
 <main>
+
   <div class="create-form">
     <h2>Nova Tarefa</h2>
     <form action="/criar" method="POST">
       <div class="form-row">
         <input type="text" name="titulo" placeholder="Título da tarefa *" required>
         <input type="text" name="descricao" placeholder="Descrição (opcional)">
-        <button type="submit">+ Criar</button>
+        <button class="btn-criar" type="submit">+ Criar</button>
       </div>
     </form>
   </div>
@@ -280,8 +244,19 @@
             <input type="hidden" name="status" value="em_progresso">
             <button class="btn btn-progresso" type="submit">→ Em Progresso</button>
           </form>
+          <button class="btn btn-editar" type="button" onclick="toggleEdit({{ t.id }})">✏ Editar</button>
           <form method="POST" action="/deletar/{{ t.id }}">
-            <button class="btn btn-del" type="submit">Deletar</button>
+            <button class="btn btn-del" type="submit">✕ Deletar</button>
+          </form>
+        </div>
+        <div class="edit-form" id="edit-{{ t.id }}">
+          <form method="POST" action="/editar/{{ t.id }}">
+            <input type="text" name="titulo" value="{{ t.titulo }}" placeholder="Título" required>
+            <input type="text" name="descricao" value="{{ t.descricao }}" placeholder="Descrição">
+            <div class="edit-form-actions">
+              <button class="btn-salvar" type="submit">Salvar</button>
+              <button class="btn-cancelar" type="button" onclick="toggleEdit({{ t.id }})">Cancelar</button>
+            </div>
           </form>
         </div>
       </div>
@@ -303,14 +278,25 @@
         <div class="card-actions">
           <form method="POST" action="/atualizar/{{ t.id }}">
             <input type="hidden" name="status" value="a_fazer">
-            <button class="btn btn-voltar" type="submit">← Voltar</button>
+            <button class="btn" type="submit">← Voltar</button>
           </form>
           <form method="POST" action="/atualizar/{{ t.id }}">
             <input type="hidden" name="status" value="concluido">
             <button class="btn btn-concluir" type="submit">✓ Concluir</button>
           </form>
+          <button class="btn btn-editar" type="button" onclick="toggleEdit({{ t.id }})">✏ Editar</button>
           <form method="POST" action="/deletar/{{ t.id }}">
-            <button class="btn btn-del" type="submit">Deletar</button>
+            <button class="btn btn-del" type="submit">✕ Deletar</button>
+          </form>
+        </div>
+        <div class="edit-form" id="edit-{{ t.id }}">
+          <form method="POST" action="/editar/{{ t.id }}">
+            <input type="text" name="titulo" value="{{ t.titulo }}" placeholder="Título" required>
+            <input type="text" name="descricao" value="{{ t.descricao }}" placeholder="Descrição">
+            <div class="edit-form-actions">
+              <button class="btn-salvar" type="submit">Salvar</button>
+              <button class="btn-cancelar" type="button" onclick="toggleEdit({{ t.id }})">Cancelar</button>
+            </div>
           </form>
         </div>
       </div>
@@ -332,10 +318,21 @@
         <div class="card-actions">
           <form method="POST" action="/atualizar/{{ t.id }}">
             <input type="hidden" name="status" value="em_progresso">
-            <button class="btn btn-voltar" type="submit">← Reabrir</button>
+            <button class="btn" type="submit">← Reabrir</button>
           </form>
+          <button class="btn btn-editar" type="button" onclick="toggleEdit({{ t.id }})">✏ Editar</button>
           <form method="POST" action="/deletar/{{ t.id }}">
-            <button class="btn btn-del" type="submit">Deletar</button>
+            <button class="btn btn-del" type="submit">✕ Deletar</button>
+          </form>
+        </div>
+        <div class="edit-form" id="edit-{{ t.id }}">
+          <form method="POST" action="/editar/{{ t.id }}">
+            <input type="text" name="titulo" value="{{ t.titulo }}" placeholder="Título" required>
+            <input type="text" name="descricao" value="{{ t.descricao }}" placeholder="Descrição">
+            <div class="edit-form-actions">
+              <button class="btn-salvar" type="submit">Salvar</button>
+              <button class="btn-cancelar" type="button" onclick="toggleEdit({{ t.id }})">Cancelar</button>
+            </div>
           </form>
         </div>
       </div>
@@ -346,6 +343,13 @@
 
   </div>
 </main>
+
+<script>
+  function toggleEdit(id) {
+    const form = document.getElementById('edit-' + id);
+    form.classList.toggle('aberto');
+  }
+</script>
 
 </body>
 </html>

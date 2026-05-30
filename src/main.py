@@ -6,7 +6,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = "techflow_secret_key"
 
-TASKS_FILE = os.path.join(os.path.dirname(__file__), "main_data.json")
+TASKS_FILE = os.path.join(os.path.dirname(__file__), "tasks_data.json")
 
 def _carregar_tarefas(caminho: str = TASKS_FILE) -> list:
     if not os.path.exists(caminho):
@@ -16,7 +16,6 @@ def _carregar_tarefas(caminho: str = TASKS_FILE) -> list:
         if not conteudo:
             return []
         return json.loads(conteudo)
-
 
 def _salvar_tarefas(tarefas: list, caminho: str = TASKS_FILE) -> None:
     with open(caminho, "w", encoding="utf-8") as f:
@@ -42,13 +41,11 @@ def criar_tarefa(titulo: str, descricao: str = "", caminho: str = TASKS_FILE) ->
     _salvar_tarefas(tarefas, caminho)
     return tarefa
 
-
 def listar_tarefas(status: str = None, caminho: str = TASKS_FILE) -> list:
     tarefas = _carregar_tarefas(caminho)
     if status:
         tarefas = [t for t in tarefas if t["status"] == status]
     return tarefas
-
 
 def buscar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE) -> dict:
     tarefas = _carregar_tarefas(caminho)
@@ -56,7 +53,6 @@ def buscar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE) -> dict:
         if tarefa["id"] == tarefa_id:
             return tarefa
     raise ValueError(f"Tarefa com ID {tarefa_id} não encontrada.")
-
 
 def atualizar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE, **campos) -> dict:
     campos_validos = {"titulo", "descricao", "status"}
@@ -82,7 +78,6 @@ def atualizar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE, **campos) -> dic
 
     raise ValueError(f"Tarefa com ID {tarefa_id} não encontrada.")
 
-
 def deletar_tarefa(tarefa_id: int, caminho: str = TASKS_FILE) -> bool:
     tarefas = _carregar_tarefas(caminho)
     tarefas_filtradas = [t for t in tarefas if t["id"] != tarefa_id]
@@ -104,7 +99,6 @@ def index():
                            em_progresso=em_progresso,
                            concluido=concluido)
 
-
 @app.route("/criar", methods=["POST"])
 def criar():
     titulo = request.form.get("titulo", "")
@@ -116,7 +110,6 @@ def criar():
         flash(str(e), "erro")
     return redirect(url_for("index"))
 
-
 @app.route("/atualizar/<int:tarefa_id>", methods=["POST"])
 def atualizar(tarefa_id):
     novo_status = request.form.get("status")
@@ -127,6 +120,16 @@ def atualizar(tarefa_id):
         flash(str(e), "erro")
     return redirect(url_for("index"))
 
+@app.route("/editar/<int:tarefa_id>", methods=["POST"])
+def editar(tarefa_id):
+    titulo = request.form.get("titulo", "")
+    descricao = request.form.get("descricao", "")
+    try:
+        atualizar_tarefa(tarefa_id, titulo=titulo, descricao=descricao)
+        flash("Tarefa atualizada!", "sucesso")
+    except ValueError as e:
+        flash(str(e), "erro")
+    return redirect(url_for("index"))
 
 @app.route("/deletar/<int:tarefa_id>", methods=["POST"])
 def deletar(tarefa_id):
@@ -136,7 +139,6 @@ def deletar(tarefa_id):
     except ValueError as e:
         flash(str(e), "erro")
     return redirect(url_for("index"))
-
 
 if __name__ == "__main__":
     app.run(debug=True)
