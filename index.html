@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow — TechFlow Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f13;
+      --surface: #18181f;
+      --surface2: #222230;
+      --border: #2e2e40;
+      --accent: #7c6dfa;
+      --accent2: #fa6d9a;
+      --accent3: #6dfabc;
+      --text: #f0f0f8;
+      --text2: #9090b0;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .badge {
+      font-size: 0.7rem;
+      background: var(--accent);
+      color: white;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .flash {
+      margin: 1rem 2rem 0;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .flash.sucesso { background: #1a3a2a; color: var(--accent3); border: 1px solid #2a5a3a; }
+    .flash.erro    { background: #3a1a2a; color: var(--accent2); border: 1px solid #5a2a3a; }
+
+    main { padding: 2rem; }
+
+    .create-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .create-form h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"], textarea {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    input[name="titulo"] { flex: 1; min-width: 200px; }
+    input[name="descricao"] { flex: 2; min-width: 250px; }
+
+    button[type="submit"] {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.5rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    button[type="submit"]:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) { .kanban { grid-template-columns: 1fr; } }
+
+    .column {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      min-height: 400px;
+    }
+
+    .column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .column-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .col-a-fazer   .column-title { color: var(--text2); }
+    .col-progresso .column-title { color: var(--accent); }
+    .col-concluido .column-title { color: var(--accent3); }
+
+    .count {
+      font-size: 0.75rem;
+      background: var(--surface2);
+      color: var(--text2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text2);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .card-meta {
+      font-size: 0.7rem;
+      color: var(--text2);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text2);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .btn:hover { background: var(--surface); color: var(--text); }
+    .btn-progresso:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-concluir:hover  { border-color: var(--accent3); color: var(--accent3); }
+    .btn-voltar:hover    { border-color: var(--text2); }
+    .btn-del:hover       { border-color: var(--accent2); color: var(--accent2); }
+
+    .empty {
+      text-align: center;
+      color: var(--text2);
+      font-size: 0.8rem;
+      padding: 2rem 0;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Task<span>Flow</span></div>
+  <span class="badge">TechFlow Solutions</span>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
+<main>
+  <div class="create-form">
+    <h2>Nova Tarefa</h2>
+    <form action="/criar" method="POST">
+      <div class="form-row">
+        <input type="text" name="titulo" placeholder="Título da tarefa *" required>
+        <input type="text" name="descricao" placeholder="Descrição (opcional)">
+        <button type="submit">+ Criar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="kanban">
+
+    <div class="column col-a-fazer">
+      <div class="column-header">
+        <span class="column-title">A Fazer</span>
+        <span class="count">{{ a_fazer|length }}</span>
+      </div>
+      {% for t in a_fazer %}
+      <div class="card">
+        <div class="card-title">{{ t.titulo }}</div>
+        {% if t.descricao %}<div class="card-desc">{{ t.descricao }}</div>{% endif %}
+        <div class="card-meta">Criado em {{ t.criado_em }}</div>
+        <div class="card-actions">
+          <form method="POST" action="/atualizar/{{ t.id }}">
+            <input type="hidden" name="status" value="em_progresso">
+            <button class="btn btn-progresso" type="submit">→ Em Progresso</button>
+          </form>
+          <form method="POST" action="/deletar/{{ t.id }}">
+            <button class="btn btn-del" type="submit">Deletar</button>
+          </form>
+        </div>
+      </div>
+      {% else %}
+      <div class="empty">Nenhuma tarefa</div>
+      {% endfor %}
+    </div>
+
+    <div class="column col-progresso">
+      <div class="column-header">
+        <span class="column-title">Em Progresso</span>
+        <span class="count">{{ em_progresso|length }}</span>
+      </div>
+      {% for t in em_progresso %}
+      <div class="card">
+        <div class="card-title">{{ t.titulo }}</div>
+        {% if t.descricao %}<div class="card-desc">{{ t.descricao }}</div>{% endif %}
+        <div class="card-meta">Atualizado em {{ t.atualizado_em }}</div>
+        <div class="card-actions">
+          <form method="POST" action="/atualizar/{{ t.id }}">
+            <input type="hidden" name="status" value="a_fazer">
+            <button class="btn btn-voltar" type="submit">← Voltar</button>
+          </form>
+          <form method="POST" action="/atualizar/{{ t.id }}">
+            <input type="hidden" name="status" value="concluido">
+            <button class="btn btn-concluir" type="submit">✓ Concluir</button>
+          </form>
+          <form method="POST" action="/deletar/{{ t.id }}">
+            <button class="btn btn-del" type="submit">Deletar</button>
+          </form>
+        </div>
+      </div>
+      {% else %}
+      <div class="empty">Nenhuma tarefa</div>
+      {% endfor %}
+    </div>
+
+    <div class="column col-concluido">
+      <div class="column-header">
+        <span class="column-title">Concluído</span>
+        <span class="count">{{ concluido|length }}</span>
+      </div>
+      {% for t in concluido %}
+      <div class="card">
+        <div class="card-title">{{ t.titulo }}</div>
+        {% if t.descricao %}<div class="card-desc">{{ t.descricao }}</div>{% endif %}
+        <div class="card-meta">Concluído em {{ t.atualizado_em }}</div>
+        <div class="card-actions">
+          <form method="POST" action="/atualizar/{{ t.id }}">
+            <input type="hidden" name="status" value="em_progresso">
+            <button class="btn btn-voltar" type="submit">← Reabrir</button>
+          </form>
+          <form method="POST" action="/deletar/{{ t.id }}">
+            <button class="btn btn-del" type="submit">Deletar</button>
+          </form>
+        </div>
+      </div>
+      {% else %}
+      <div class="empty">Nenhuma tarefa</div>
+      {% endfor %}
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
