@@ -181,3 +181,9 @@ pytest tests/ --cov=src --cov-report=term-missing
 | GitHub Actions | Integração contínua |
 | GitHub Projects | Gestão ágil (Kanban) |
 | JSON | Persistência de dados |
+
+---
+
+# Vídeo Pitch
+
+Segue link do vídeo pitch postado no youtube: [Vídeo Pitch](https://youtu.be/FRRhOguFAqs)
