@@ -47,6 +47,16 @@ As iterações seguem ciclos curtos com revisão contínua das prioridades, alin
 
 ---
 
+## Documentação
+
+| Documento | Descrição |
+|-----------|-----------|
+| [📄 Documentação Teórica](docs/documentacao.md) | Descrição do projeto, metodologia, diagramas UML, testes e questões norteadoras |
+| [📊 Diagrama de Casos de Uso](docs/images/UML_CasoUso.png) | UML — interações entre usuário e sistema |
+| [📐 Diagrama de Classes](docs/images/UML_Classe.png) | UML — estrutura das classes e relacionamentos |
+
+---
+
 ## Estrutura do Repositório
 
 ```
@@ -58,7 +68,16 @@ taskflow/
 │       └── index.html        # Interface web — quadro Kanban
 ├── tests/
 │   └── test_main.py          # Testes unitários com Pytest
-├── docs/                     # Documentação adicional e diagramas UML
+├── docs/
+│   ├── documentacao.md       # Documentação teórica completa
+|   └── images/
+│       ├── UML_CasoUso.png   # Diagrama de Casos de Uso (UML)
+│       ├── UML_Classe.png    # Diagrama de Classes (UML)
+|       ├── project.png
+|       ├── Commits.png
+|       ├── CI.png
+|       └── Actions.png
+|   └── UML-TaskFlow.drawio.svg # Arquivo dos Diagramas
 ├── .github/
 │   └── workflows/
 │       └── ci.yml            # Pipeline de integração contínua
